@@ -1,0 +1,28 @@
+{
+  "apps" : [
+    {
+      "name"      : "nginx-gui",
+      "script"    : "index.js",
+      "env": {
+        "COMMON_VARIABLE": "true"
+      },
+      "env_production" : {
+        "NODE_ENV": "production"
+      }
+    }
+  ],
+  "deploy" : {
+    "production" : {
+      "user" : "root",
+      "host" : "47.102.219.55",
+      "ref"  : "gitee/master",
+      "repo" : "git@gitee.com:zoelee/mywebserver.git",
+      "path" : "/usr/share/nginx/html/webserver",
+      "ssh_options": "StrictHostKeyChecking=no",
+      "post-deploy": "npm install && pm2 startOrRestart ecosystem.json --env production",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
